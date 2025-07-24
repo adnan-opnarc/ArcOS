@@ -38,4 +38,6 @@ os: kernel.bin
 clean:
 	@echo "Cleaning up..."
 	rm -rf *.o kernel.bin image
+ 	rm src/*.o
+
 
