@@ -6,7 +6,7 @@ ArcOS is a custom bare-metal operating system developed from scratch. It targets
 
 ## Features
 
-- Limine bootloader support
+- Grub bootloader support
 - Minimal command-line shell with:
   - `ls` – List directory contents
   - `clear` – Clear the screen
