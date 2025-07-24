@@ -129,7 +129,8 @@ void kernel_main(void) {
     show_splash();
     clear_screen();
     puts("Welcome to ArcOS!\n");
-    puts("This version of ArcOS is named salvador x86. For commands type 'help' to get all commands listed.\n\n");
+    puts("This version of ArcOS is named salvador x86.\n");
+    puts("For commands type 'help' to get commands listed\n\n")
     delay();
     shell_main();
     while (1) {}
