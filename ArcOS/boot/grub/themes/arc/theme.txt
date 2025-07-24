@@ -1,0 +1,14 @@
+title-text:   "ArcOS Boot Menu"
+title-color:  "white"
+
+boot_menu {
+    left = 10%
+    top = 30%
+    width = 80%
+    height = 40%
+    item_height = 32
+    item_font = "DejaVuSans-16"
+    item_color = "white"
+    selected_item_color = "black"
+    selected_item_bg_color = "white"
+}
