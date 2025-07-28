@@ -30,5 +30,6 @@ ArcOS is a custom bare-metal operating system developed from scratch. It targets
 ## Building and Running
 
 ```bash
-make
+cd ArcOS
+cd ArcOS
 make run
