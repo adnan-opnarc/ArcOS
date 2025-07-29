@@ -33,3 +33,9 @@ ArcOS is a custom bare-metal operating system developed from scratch. It targets
 cd ArcOS
 cd ArcOS
 make run
+```
+## Login password and user
+
+```bash
+root(user)
+arcroot(password)
