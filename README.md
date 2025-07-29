@@ -5,8 +5,10 @@ ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 
 ---
 
 ## What's new in 1.4k
+
  -Login system
  -Fixed bugs
+
 ---
 
 ## Features
