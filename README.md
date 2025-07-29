@@ -1,7 +1,12 @@
 # ArcOS
 
-ArcOS is a custom bare-metal operating system developed from scratch. It targets x86 32-bit architecture and runs with a minimum of 2MB RAM. The OS features a basic shell, essential command-line tools, and a FAT32 filesystem.
+ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 32 bit system.works on 2 megabyte but the bootloader grub wont load if lower.future modifications for this os is kinda limited.
 
+---
+
+## What's new in 1.4k
+ -Login system
+ -Fixed bugs
 ---
 
 ## Features
