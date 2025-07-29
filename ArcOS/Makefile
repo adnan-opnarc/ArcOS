@@ -26,14 +26,14 @@ kernel.bin: $(OBJS)
 
 run: os
 	@echo "Running in QEMU..."
-	qemu-system-i386 -cdrom image/ArcOS-Salvador1.3.iso -m 512M -boot d
+	qemu-system-i386 -cdrom image/ArcOS-Salvador1.4k.iso -m 512M -boot d
 
 os: kernel.bin
 	@echo "Building ISO..."
 	mkdir -p image/boot/grub
 	cp kernel.bin image/boot/
 	cp boot/grub.cfg image/boot/grub/grub.cfg
-	grub-mkrescue -o image/ArcOS-Salvador1.3.iso image
+	grub-mkrescue -o image/ArcOS-Salvador1.4k.iso image
 
 clean:
 	@echo "Cleaning up..."
