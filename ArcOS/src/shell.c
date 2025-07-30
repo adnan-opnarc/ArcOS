@@ -14,12 +14,11 @@ void credit_main(void) {
     puts("Maintainer:Adnan\nProgrammer:Adnan\n");
 };
 void lfetch_main(void) {
-    puts("       /\\        \n");
-    puts("      /  \\       \n");
-    puts("     / /\\ \\      \n");
-    puts("    / ____ \\     \n");
+    puts("       /\\           memory:no data \n");
+    puts("      /  \\          proccesor:x86\n");
+    puts("     / /\\ \\        kernel:1.4kvf\n");
+    puts("    / ____ \\        storage:raw\n");
     puts("   /_/    \\_\\    \n");
-    puts("\n     Arc OS      \n");
 };
 void whmi_main(void) {
     puts("root\n");
