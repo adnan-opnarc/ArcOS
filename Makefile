@@ -11,9 +11,9 @@ C_SOURCES = src/root/kernel.c src/sh/shell.c src/crp/string.c src/driver/keyboar
 S_SOURCES = $(wildcard src/*.s)
 OBJS = $(C_SOURCES:.c=.o) $(S_SOURCES:.s=.o)
 
-all: initdisk.bin
+all: initdisk.img
 
-initdisk.bin: $(OBJS)
+initdisk.img: $(OBJS)
 	@echo "==>     $@"
 	@$(LD) $(LDFLAGS) -o $@ $(OBJS)
 
@@ -29,7 +29,7 @@ run: build
 	@echo "Running in QEMU..."
 	qemu-system-i386 -cdrom image/ArcOS-Salvador1.4k.iso -m 512M -boot d
 
-build: initdisk.bin
+build: initdisk.img
 	@echo "Building ISO..."
 	mkdir -p image/boot/grub
 	cp initdisk.bin image/boot/
@@ -39,6 +39,6 @@ build: initdisk.bin
 clean:
 	@echo "Cleaning up..."
 	find src/ -name '*.o' -type f -delete
-	rm -f *.o initdisk.bin
+	rm -f *.o initdisk.img
 	rm -rf image
 
