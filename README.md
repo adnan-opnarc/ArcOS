@@ -38,7 +38,6 @@ ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 
 
 ```bash
 cd ArcOS
-cd ArcOS
 make run
 ```
 ## Login password and user
