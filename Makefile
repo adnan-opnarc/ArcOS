@@ -1,4 +1,3 @@
-AS = as
 CC = gcc
 LD = ld
 
@@ -8,8 +7,7 @@ LDFLAGS = -T linker.ld -nostdlib -m elf_i386
 
 C_SOURCES = src/root/kernel.c src/sh/shell.c src/crp/string.c src/driver/keyboard.c src/crp/ata.c src/fs/fat32.c src/uilib/ui.c src/sh/cd.c src/sh/exit.c src/sh/ls.c src/sh/lfetch.c src/sh/ltime.c src/sh/mkdir.c src/sh/rmdir.c src/sh/echo.c src/fs/btfs.c src/fs/fat12.c src/fs/lfs.c src/fs/nfs.c src/fs/lfs.c
 
-S_SOURCES = $(wildcard src/*.s)
-OBJS = $(C_SOURCES:.c=.o) $(S_SOURCES:.s=.o)
+OBJS = $(C_SOURCES:.c=.o)
 
 all: initdisk.img
 
@@ -21,9 +19,6 @@ initdisk.img: $(OBJS)
 	@echo "==>     $<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-%.o: %.s
-	@echo "==>     $<"
-	@$(AS) $(AFLAGS) -o $@ $<
 
 run: build
 	@echo "Running in QEMU..."
