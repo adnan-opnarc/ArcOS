@@ -46,3 +46,63 @@ make run
 ```bash
 root(user)
 arcroot(password)
+```
+### File structure
+```bash
+├── boot
+│   ├── grub
+│   │   └── themes
+│   │       └── arc
+│   │           └── theme.txt
+│   └── grub.cfg
+├── LICENSE
+├── linker.ld
+├── Makefile
+├── README.md
+└── src
+    ├── crp
+    │   ├── ata.c
+    │   ├── ata.h
+    │   ├── io.h
+    │   ├── string.c
+    │   └── string.h
+    ├── driver
+    │   ├── keyboard.c
+    │   └── keyboard.h
+    ├── fs
+    │   ├── btfs.c
+    │   ├── btfs.h
+    │   ├── fat12.c
+    │   ├── fat12.h
+    │   ├── fat32.c
+    │   ├── fat32.h
+    │   ├── lfs.c
+    │   ├── lfs.h
+    │   ├── nfs.c
+    │   └── nfs.h
+    ├── root
+    │   └── kernel.c
+    ├── sh
+    │   ├── cd.c
+    │   ├── cd.h
+    │   ├── echo.c
+    │   ├── echo.h
+    │   ├── exit.c
+    │   ├── exit.h
+    │   ├── lfetch.c
+    │   ├── lfetch.h
+    │   ├── ls.c
+    │   ├── ls.h
+    │   ├── ltime.c
+    │   ├── ltime.h
+    │   ├── mkdir.c
+    │   ├── mkdir.h
+    │   ├── rmdir.c
+    │   ├── rmdir.h
+    │   ├── shell.c
+    │   └── shell.h
+    └── uilib
+        ├── ui.c
+        └── ui.h
+```
+
