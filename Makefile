@@ -27,7 +27,7 @@ run: build
 build: initdisk.img
 	@echo "Building ISO..."
 	mkdir -p image/boot/grub
-	cp initdisk.bin image/boot/
+	cp initdisk.img image/boot/
 	cp boot/grub.cfg image/boot/grub/grub.cfg
 	grub-mkrescue -o image/ArcOS-Salvador1.4k.iso image > /dev/null 2>&1
 
