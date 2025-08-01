@@ -10,6 +10,8 @@ ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 
 - Fixed bugs
 
 ---
+## What's in work
+-Arm cpu support
 
 ## Features
 
@@ -38,7 +40,7 @@ ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 
 
 ```bash
 cd ArcOS
-make run
+./build.sh
 ```
 ## Login password and user
 
@@ -48,60 +50,90 @@ arcroot(password)
 ```
 ### File structure
 ```bash
+.
 ├── boot
 │   ├── grub
 │   │   └── themes
 │   │       └── arc
 │   │           └── theme.txt
+│   ├── grubarch64.cfg
 │   └── grub.cfg
+├── build.sh
 ├── LICENSE
 ├── linker.ld
 ├── Makefile
 ├── README.md
 └── src
-    ├── crp
-    │   ├── ata.c
-    │   ├── ata.h
-    │   ├── io.h
-    │   ├── string.c
-    │   └── string.h
-    ├── driver
-    │   ├── keyboard.c
-    │   └── keyboard.h
-    ├── fs
-    │   ├── btfs.c
-    │   ├── btfs.h
-    │   ├── fat12.c
-    │   ├── fat12.h
-    │   ├── fat32.c
-    │   ├── fat32.h
-    │   ├── lfs.c
-    │   ├── lfs.h
-    │   ├── nfs.c
-    │   └── nfs.h
-    ├── root
-    │   └── kernel.c
-    ├── sh
-    │   ├── cd.c
-    │   ├── cd.h
-    │   ├── echo.c
-    │   ├── echo.h
-    │   ├── exit.c
-    │   ├── exit.h
-    │   ├── lfetch.c
-    │   ├── lfetch.h
-    │   ├── ls.c
-    │   ├── ls.h
-    │   ├── ltime.c
-    │   ├── ltime.h
-    │   ├── mkdir.c
-    │   ├── mkdir.h
-    │   ├── rmdir.c
-    │   ├── rmdir.h
-    │   ├── shell.c
-    │   └── shell.h
-    └── uilib
-        ├── ui.c
-        └── ui.h
+    ├── arm
+    │   └── ark
+    │       ├── ark.elf
+    │       ├── include
+    │       │   └── uart.h
+    │       ├── kernel8.img
+    │       ├── Makefile
+    │       ├── scripts
+    │       │   └── linker.ld
+    │       └── src
+    │           ├── arch
+    │           │   └── arm
+    │           │       └── boot
+    │           │           └── entry.s
+    │           ├── drivers
+    │           │   └── uart.c
+    │           └── kernel
+    │               └── main.c
+    └── x86
+        ├── crp
+        │   └── x86
+        │       ├── ata.c
+        │       ├── ata.h
+        │       ├── io.h
+        │       ├── string.c
+        │       └── string.h
+        ├── driver
+        │   └── x86
+        │       ├── keyboard.c
+        │       └── keyboard.h
+        ├── fs
+        │   ├── btfs.c
+        │   ├── btfs.h
+        │   ├── fat12.c
+        │   ├── fat12.h
+        │   ├── fat32.c
+        │   ├── fat32.h
+        │   ├── lfs.c
+        │   ├── lfs.h
+        │   ├── nfs.c
+        │   └── nfs.h
+        ├── root
+        │   └── x86
+        │       └── kernel.c
+        ├── sh
+        │   └── x86
+        │       ├── cd.c
+        │       ├── cd.h
+        │       ├── echo.c
+        │       ├── echo.h
+        │       ├── exit.c
+        │       ├── exit.h
+        │       ├── lfetch.c
+        │       ├── lfetch.h
+        │       ├── ls.c
+        │       ├── ls.h
+        │       ├── ltime.c
+        │       ├── ltime.h
+        │       ├── mkdir.c
+        │       ├── mkdir.h
+        │       ├── rmdir.c
+        │       ├── rmdir.h
+        │       ├── shell.c
+        │       └── shell.h
+        └── uilib
+            └── x86
+                ├── ui.c
+                └── ui.h
+
+28 directories, 54 files
+
 ```
 
