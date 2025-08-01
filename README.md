@@ -11,7 +11,7 @@ ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 
 
 ---
 ## What's in work
--Arm cpu support
+- Arm cpu support
 
 ## Features
 
