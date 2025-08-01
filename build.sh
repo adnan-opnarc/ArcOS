@@ -16,7 +16,8 @@ display_main_menu() {
     echo "----------------------------------------"
     echo " 1. ARM64 (ARK Kernel - RPi Zero 2 W)"
     echo " 2. i386 (X86 Kernel)"
-    echo " 3. Exit"
+    echo " 3. Flash OS (USB Flasher Tool)"
+    echo " 4. Exit"
     echo "----------------------------------------"
     echo -n " Enter your choice: "
 }
@@ -79,13 +80,26 @@ clean_i386() {
 }
 
 qemu_i386() {
-    echo "Building and running i386 (X86 Kernel) in QEMU (preffered method)..."
+    echo "Building and running i386 (X86 Kernel) in QEMU (preferred method)..."
     echo "Running command from root: make run arch=i386"
     (cd "${PROJECT_ROOT}" && make run arch=i386) || { echo "ERROR: i386 build and run failed."; return 1; }
     echo "i386 QEMU session complete."
     return 0
 }
 
+# --- USB Flasher Tool Function ---
+
+flash_os() {
+    echo "Launching USB Flasher Tool..."
+    if [ -f "${PROJECT_ROOT}/utils/flasher.py" ]; then
+        cd "${PROJECT_ROOT}/utils"
+        python flasher.py
+        cd "${PROJECT_ROOT}"
+    else
+        echo "ERROR: flasher.py not found in utils/ directory."
+        read -n 1 -s -r -p "Press any key to continue..."
+    fi
+}
 
 # --- Main Script Logic ---
 
@@ -124,7 +138,10 @@ while true; do
                 read -n 1 -s -r -p "Press any key to continue..."
             done
             ;;
-        3) # Exit
+        3) # Flash OS (USB Flasher Tool)
+            flash_os
+            ;;
+        4) # Exit
             echo "Exiting the Build System Selector."
             clear
             exit 0
@@ -135,3 +152,4 @@ while true; do
             ;;
     esac
 done
+
