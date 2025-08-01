@@ -126,6 +126,7 @@ while true; do
             ;;
         3) # Exit
             echo "Exiting the Build System Selector."
+            clear
             exit 0
             ;;
         *) # Invalid Main Menu choice
