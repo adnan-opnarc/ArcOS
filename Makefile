@@ -1,129 +1,80 @@
-# Define default ARCH if not specified on command line.
-# This must be at the top level to affect variable definitions.
-arch ?= i386
+# Compiler and tools
+CC := gcc
+LD := ld
+GRUB_MKRESCUE := grub-mkrescue
+QEMU := qemu-system-i386
 
-ifeq ($(arch),i386)
-	CC = gcc
-	LD = ld
-	CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -m32 -fno-stack-protector -Isrc
-	AFLAGS = --32
-	LDFLAGS = -T linker.ld -nostdlib -m elf_i386
-	GRUB_CFG = boot/grub.cfg
-	QEMU_CMD = qemu-system-i386 -cdrom image/ArcOS-Salvador1.4k_$(arch).iso -m 512M -boot d
-	C_SOURCES = \
-		src/root/x86/kernel.c \
-		src/sh/x86/shell.c \
-		src/crp/x86/string.c \
-		src/driver/x86/keyboard.c \
-		src/crp/x86/ata.c \
-		src/fs/fat32.c \
-		src/uilib/x86/ui.c \
-		src/sh/x86/cd.c \
-		src/sh/x86/exit.c \
-		src/sh/x86/ls.c \
-		src/sh/x86/lfetch.c \
-		src/sh/x86/ltime.c \
-		src/sh/x86/mkdir.c \
-		src/sh/x86/rmdir.c \
-		src/sh/x86/echo.c \
-		src/fs/btfs.c \
-		src/fs/fat12.c \
-		src/fs/lfs.c \
-		src/fs/nfs.c
-else ifeq ($(arch),arm64)
-	CC = aarch64-linux-gnu-gcc
-	LD = aarch64-linux-gnu-ld
-	CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -march=armv8-a -fno-stack-protector -Isrc
-	LDFLAGS = -T linker_arm64.ld -nostdlib
-	GRUB_CFG = boot/grubarch64.cfg
-	QEMU_CMD = qemu-system-aarch64 -M virt -cpu cortex-a57 -kernel image/initdisk_$(arch).img -m 1024M -append "root=/dev/vda console=ttyAMA0" -nographic
-	C_SOURCES = \
-		src/root/arm/kernel.c \
-		src/sh/arm/shell.c \
-		src/crp/arm/string.c \
-		src/driver/arm/keyboard.c \
-		src/driver/arm/uart.c \
-		src/crp/arm/ata.c \
-		src/fs/fat32.c \
-		src/uilib/arm/ui.c \
-		src/sh/arm/cd.c \
-		src/sh/arm/exit.c \
-		src/sh/arm/ls.c \
-		src/sh/arm/lfetch.c \
-		src/sh/arm/ltime.c \
-		src/sh/arm/mkdir.c \
-		src/sh/arm/rmdir.c \
-		src/sh/arm/echo.c \
-		src/fs/btfs.c \
-		src/fs/fat12.c \
-		src/fs/lfs.c \
-		src/fs/nfs.c
-else
-	$(error Invalid architecture specified: $(arch). Must be i386 or arm64.)
-endif
+# Flags
+CFLAGS := -std=gnu99 -ffreestanding -O2 -Wall -Wextra -m32 -fno-stack-protector -Isrc
+LDFLAGS := -T linker.ld -nostdlib -m elf_i386
 
-KERNEL_OBJS = $(C_SOURCES:.c=.o)
-KERNEL_IMAGE = initdisk_$(arch).img
-ISO_NAME = ArcOS-Salvador1.4k_$(arch).iso
+# Output
+KERNEL_IMG := ArcOS-i386.img
+ISO_DIR := iso_root
+ISO_IMAGE := image/ArcOS-Salvador1.4k_i386.iso
 
-all: $(KERNEL_IMAGE)
+# Source and object files
+SRC := \
+	src/x86/root/x86/kernel.c \
+	src/x86/sh/x86/shell.c \
+	src/x86/crp/x86/string.c \
+	src/x86/driver/x86/keyboard.c \
+	src/x86/crp/x86/ata.c \
+	src/x86/fs/fat32.c \
+	src/x86/uilib/x86/ui.c \
+	src/x86/sh/x86/cd.c \
+	src/x86/sh/x86/exit.c \
+	src/x86/sh/x86/ls.c \
+	src/x86/sh/x86/lfetch.c \
+	src/x86/sh/x86/ltime.c \
+	src/x86/sh/x86/mkdir.c \
+	src/x86/sh/x86/rmdir.c \
+	src/x86/sh/x86/echo.c \
+	src/x86/fs/btfs.c \
+	src/x86/fs/fat12.c \
+	src/x86/fs/lfs.c \
+	src/x86/fs/nfs.c
 
-$(KERNEL_IMAGE): $(KERNEL_OBJS)
-	@echo "==>ldk       $@"
-	$(LD) $(LDFLAGS) -o $@ $(KERNEL_OBJS)
+OBJ := $(SRC:.c=.o)
 
+# Colors
+BLUE := \033[1;34m
+GREEN := \033[1;32m
+RESET := \033[0m
+
+.PHONY: all build kernel iso clean run
+
+all: build iso
+
+build: kernel
+
+# Compile each .c to .o with colored messages
 %.o: %.c
-	@mkdir -p $(@D)
-	@echo "==>gcc       $<"
-	$(CC) $(CFLAGS) -c $< -o $@
+	@echo -e "$(BLUE) => gcc $<$(RESET)"
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
-build: $(arch)
+# Link all objects into a kernel image with colored message
+kernel: $(OBJ)
+	@echo -e "$(GREEN)==> Linking x86 kernel: $(KERNEL_IMG)$(RESET)"
+	@$(LD) $(LDFLAGS) -o $(KERNEL_IMG) $^
 
-$(arch): $(KERNEL_IMAGE)
-	@echo "Building image for $(arch)..."
-	@mkdir -p image/boot/grub
-	@cp $(KERNEL_IMAGE) image/boot/
-ifeq ($(arch),i386)
-	@cp $(GRUB_CFG) image/boot/grub/grub.cfg
-	@grub-mkrescue -o image/$(ISO_NAME) image
-else ifeq ($(arch),arm64)
-	@echo "Skipping grub-mkrescue for ARM64. QEMU will boot directly from kernel image."
-endif
+iso: kernel
+	@echo -e "$(GREEN) => Preparing ISO directory$(RESET)"
+	@rm -rf $(ISO_DIR)
+	@mkdir -p $(ISO_DIR)/boot/grub
+	@cp $(KERNEL_IMG) $(ISO_DIR)/boot/$(KERNEL_IMG)
+	@cp boot/grub.cfg $(ISO_DIR)/boot/grub/grub.cfg
 
-run: build
-	@echo "Running in QEMU (Architecture: $(arch))..."
-	$(QEMU_CMD)
+	@echo -e "$(GREEN) => Creating bootable ISO with grub-mkrescue$(RESET)"
+	@mkdir -p image
+	@$(GRUB_MKRESCUE) -o $(ISO_IMAGE) $(ISO_DIR)
+	@echo -e "$(GREEN)ISO image created at $(ISO_IMAGE)$(RESET)"
+
+run: iso
+	@echo -e "$(GREEN) => Running ISO in QEMU$(RESET)"
+	@$(QEMU) -cdrom $(ISO_IMAGE) -m 512
 
 clean:
-	@echo "Cleaning up..."
-	@find src/ -name '*.o' -type f -delete
-	@rm -f $(KERNEL_IMAGE) image/$(ISO_NAME)
-	@rm -rf image
-	@echo "Cleanup complete."
-
-help:
-	@echo ""
-	@echo "---------------------------------------"
-	@echo "                  x86                  "
-	@echo ""
-	@echo "+build for i386"
-	@echo "make build arch=i386"
-	@echo "+only initdisk"
-	@echo "make arch=i386"
-	@echo "+to build and run(preffered)"
-	@echo "make run arch=i386"
-	@echo ""
-	@echo "---------------------------------------"
-	@echo "                  arm                  "
-	@echo ""
-	@echo "+build for arm(new doesnt work for now)"
-	@echo "make build arch=arm64"
-	@echo "+only initdisk"
-	@echo "make arch=arm64"
-	@echo "+to build and run(preffered)"
-	@echo "make run arch=arm64"
-	
-	
-	
-.PHONY: all build run clean $(arch)
+	@echo -e "$(BLUE) => Cleaning build artifacts$(RESET)"
+	@rm -rf $(OBJ) $(KERNEL_IMG) $(ISO_DIR) image/*.iso
 
