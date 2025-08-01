@@ -1,5 +1,5 @@
 #include "fat32.h"
-#include "../crp/ata.h"
+#include "../crp/x86/ata.h"
 #include <stdint.h>
 #include <stddef.h>
 #include <string.h>
