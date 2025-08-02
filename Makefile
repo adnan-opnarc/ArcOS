@@ -1,3 +1,10 @@
+#code name
+VER = 1.5
+CN = opassium
+SDD = kvf
+MM = 4.8
+BUID = 174893KJF0098
+
 # Compiler and tools
 CC := gcc
 LD := ld
@@ -11,7 +18,7 @@ LDFLAGS := -T binlink.ld -nostdlib -m elf_i386
 # Output
 KERNEL_IMG := ArcOS-i386.img
 ISO_DIR := iso_root
-ISO_IMAGE := image/ArcOS-Salvador1.4k_i386.iso
+ISO_IMAGE := image/ArcOS-Salvador1.5k_i386.iso
 
 # Source and object files
 SRC := \
