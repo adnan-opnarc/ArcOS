@@ -1,3 +1,11 @@
+#include "cd.h"
+#include "echo.h"
+#include "exit.h"
+#include "lfetch.h"
+#include "ls.h"
+#include "ltime.h"
+#include "mkdir.h"
+#include "rmdir.h"
 #include "shell.h"
 #include "../../driver/x86/keyboard.h"
 #include "../../crp/x86/string.h"
@@ -13,18 +21,12 @@ void msc_main(void);
 void credit_main(void) {
     puts("Maintainer:Adnan\nProgrammer:Adnan\n");
 };
-void lfetch_main(void) {
-    puts("       /\\           memory:no data \n");
-    puts("      /  \\          proccesor:x86\n");
-    puts("     / /\\ \\        kernel:1.4kvf\n");
-    puts("    / ____ \\        storage:raw\n");
-    puts("   /_/    \\_\\    \n");
-};
+
 void whmi_main(void) {
     puts("root\n");
 };
 void shv_v(void) {
-    puts("1.3kvf\n");
+    puts("1.4kvf\n");
 };
 
 // I/O port access for reboot/shutdown
@@ -130,7 +132,7 @@ void shell_main(void) {
                 if (i == 0) {
                     // empty command, just prompt again
                 } else if (strcmp(command, "help") == 0) {
-                    puts("Available commands: credit, help, clear, ls, msc, reboot, shutdown, lfetch, whoami, shell --v\n");
+                    puts("Available commands: mkdir, rmdir, credit, help, clear, ls, msc, reboot, shutdown, lfetch, whoami, shell --v\n");
                 } else if (strcmp(command, "credit") == 0) {
                     credit_main();
                 } else if (strcmp(command, "clear") == 0) {
@@ -154,6 +156,10 @@ void shell_main(void) {
                     whmi_main();                
                 } else if (strcmp(command,  "shell --v") == 0) {
                     shv_v();
+                } else if (strcmp(command,  "mkdir") == 0) {
+                    mkdir_main();
+                } else if (strcmp(command,  "rmdir") == 0) {\
+                    rmdir_main();
                 } else {
                     puts("Unknown command: ");
                     puts(command);

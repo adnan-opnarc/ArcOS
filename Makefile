@@ -6,7 +6,7 @@ QEMU := qemu-system-i386
 
 # Flags
 CFLAGS := -std=gnu99 -ffreestanding -O2 -Wall -Wextra -m32 -fno-stack-protector -Isrc
-LDFLAGS := -T linker.ld -nostdlib -m elf_i386
+LDFLAGS := -T binlink.ld -nostdlib -m elf_i386
 
 # Output
 KERNEL_IMG := ArcOS-i386.img

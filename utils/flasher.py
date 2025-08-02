@@ -60,7 +60,7 @@ class USBFlasher(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("ArcOS USB Flasher")
-        self.setMinimumSize(400, 200)
+        self.setMinimumSize(200, 500)
         self.device = None
         self.image = None
 
