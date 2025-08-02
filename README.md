@@ -61,7 +61,7 @@ arcroot(password)
 │   └── grub.cfg
 ├── build.sh
 ├── LICENSE
-├── linker.ld
+├── binlink.ld
 ├── Makefile
 ├── README.md
 └── src
