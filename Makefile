@@ -30,6 +30,7 @@ SRC := \
 	src/x86/fs/fat32.c \
 	src/x86/uilib/x86/ui.c \
 	src/x86/sh/x86/cd.c \
+	src/x86/sh/x86/pnc.c \
 	src/x86/sh/x86/exit.c \
 	src/x86/sh/x86/ls.c \
 	src/x86/sh/x86/lfetch.c \
