@@ -4,16 +4,16 @@ ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 
 
 ---
 
-## What's new in 1.5kvf
+## 1.5kvf
 
 - seperate code system
 - Fixed bugs
 
 ---
 ## What's in work
-- Arm cpu support
+- Closed project
 
-## Features
+## Features(i worked on)
 
 - Grub bootloader support
 - Minimal command-line shell with:
@@ -49,7 +49,7 @@ chmod +x build.sh
 root(user)
 arcroot(password)
 ```
-### File structure
+### File structure (20% of the shell commands are empty)
 ```bash
 .
 ├── boot
