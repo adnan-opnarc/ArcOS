@@ -106,7 +106,7 @@ static void login_prompt(void) {
 
         if (check_credentials(username, password)) {
             clear_screen();
-            puts("\nKernel version 1.5 ARK-ELI");
+            puts("\nKernel version 1.5 Archaeopatryx-15/8/2025");
             puts("\nLogin successful.Type 'help' command to get all the commands listed\n");
             break;
         } else {
