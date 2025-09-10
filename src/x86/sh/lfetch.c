@@ -9,5 +9,6 @@ void lfetch_main(void) {
     puts("     / /\\ \\        kernel:1.5kvf\n");
     puts("    / ____ \\        storage:raw\n");
     puts("   /_/    \\_\\    \n");
+    puts("    ARCHAEOPATRYX\n")
 }
 
