@@ -3,6 +3,6 @@
 #include "../crp/io.h"
 #include "shell.h"
 void mkdir_main(void) {
-    puts("mkdir: not implemented yet\n");
+    printk("mkdir: not implemented yet\n");
 }
 

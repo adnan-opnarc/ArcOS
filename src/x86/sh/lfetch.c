@@ -4,11 +4,11 @@
 #include "shell.h"
 
 void lfetch_main(void) {
-    puts("       /\\           memory:no data \n");
-    puts("      /  \\          proccesor:x86\n");
-    puts("     / /\\ \\        kernel:1.5kvf\n");
-    puts("    / ____ \\        storage:raw\n");
-    puts("   /_/    \\_\\    \n");
-    puts("    ARCHAEOPATRYX\n");
+    printk("       /\\           memory:no data \n");
+    printk("      /  \\          proccesor:x86\n");
+    printk("     / /\\ \\        kernel:1.5kvf\n");
+    printk("    / ____ \\        storage:raw\n");
+    printk("   /_/    \\_\\    \n");
+    printk("    ARCHAEOPATRYX\n");
 }
 

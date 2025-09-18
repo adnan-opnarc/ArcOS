@@ -69,7 +69,7 @@ void putchar(char c) {
     update_cursor();
 }
 
-void puts(const char* str) {
+void printk(const char* str) {
     while (*str) {
         putchar(*str++);
     }
@@ -93,26 +93,26 @@ void dbfs() {
 }
 
 void msc_main(void) {
-    puts("\n[!] Running system scan...\n");
+    printk("\n[!] Running system scan...\n");
     delay();
-    puts("[*] Checking filesystem...\n");
+    printk("[*] Checking filesystem...\n");
     delay();
-    puts("[*] Checking memory...\n");
+    printk("[*] Checking memory...\n");
     delay();
-    puts("[*] Analyzing processes...\n");
+    printk("[*] Analyzing processes...\n");
     delay();
-    puts("[+] Booted normally.\n\n");
+    printk("[+] Booted normally.\n\n");
     delay();
 }
 
 void show_splash(void) {
     clear_screen();
-    puts("       /\\        \n");
-    puts("      /  \\       \n");
-    puts("     / /\\ \\      \n");
-    puts("    / ____ \\     \n");
-    puts("   /_/    \\_\\    \n");
-    puts("\n     Arc OS      \n");
+    printk("       /\\        \n");
+    printk("      /  \\       \n");
+    printk("     / /\\ \\      \n");
+    printk("    / ____ \\     \n");
+    printk("   /_/    \\_\\    \n");
+    printk("\n     Arc OS      \n");
     dbfs();
 }
 
@@ -120,8 +120,8 @@ void kernel_main(void) {
     show_splash();
     clear_screen();
     msc_main();
-    puts("Welcome to ArcOS! \n");
-    puts("Log in as root user.\n");
+    printk("Welcome to ArcOS! \n");
+    printk("Log in as root user.\n");
     shell_main();
 
     while (1) {}
