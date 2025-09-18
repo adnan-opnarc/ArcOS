@@ -52,6 +52,7 @@ arcroot(password)
 ### File structure (20% of the shell commands are empty)
 ```bash
 .
+├── binlink.ld
 ├── boot
 │   ├── grub
 │   │   └── themes
@@ -60,81 +61,58 @@ arcroot(password)
 │   ├── grubarch64.cfg
 │   └── grub.cfg
 ├── build.sh
+├── image
+├── last.txt
 ├── LICENSE
-├── binlink.ld
 ├── Makefile
 ├── README.md
-└── src
-    ├── arm
-    │   └── ark
-    │       ├── ark.elf
-    │       ├── include
-    │       │   └── uart.h
-    │       ├── kernel8.img
-    │       ├── Makefile
-    │       ├── scripts
-    │       │   └── linker.ld
-    │       └── src
-    │           ├── arch
-    │           │   └── arm
-    │           │       └── boot
-    │           │           └── entry.s
-    │           ├── drivers
-    │           │   └── uart.c
-    │           └── kernel
-    │               └── main.c
-    └── x86
-        ├── crp
-        │   └── x86
-        │       ├── ata.c
-        │       ├── ata.h
-        │       ├── io.h
-        │       ├── string.c
-        │       └── string.h
-        ├── driver
-        │   └── x86
-        │       ├── keyboard.c
-        │       └── keyboard.h
-        ├── fs
-        │   ├── btfs.c
-        │   ├── btfs.h
-        │   ├── fat12.c
-        │   ├── fat12.h
-        │   ├── fat32.c
-        │   ├── fat32.h
-        │   ├── lfs.c
-        │   ├── lfs.h
-        │   ├── nfs.c
-        │   └── nfs.h
-        ├── root
-        │   └── x86
-        │       └── kernel.c
-        ├── sh
-        │   └── x86
-        │       ├── cd.c
-        │       ├── cd.h
-        │       ├── echo.c
-        │       ├── echo.h
-        │       ├── exit.c
-        │       ├── exit.h
-        │       ├── lfetch.c
-        │       ├── lfetch.h
-        │       ├── ls.c
-        │       ├── ls.h
-        │       ├── ltime.c
-        │       ├── ltime.h
-        │       ├── mkdir.c
-        │       ├── mkdir.h
-        │       ├── rmdir.c
-        │       ├── rmdir.h
-        │       ├── shell.c
-        │       └── shell.h
-        └── uilib
-            └── x86
-                ├── ui.c
-                └── ui.h
-
-28 directories, 54 files
-
+├── src
+│   └── x86
+│       ├── crp
+│       │   ├── ata.c
+│       │   ├── ata.h
+│       │   ├── io.h
+│       │   ├── string.c
+│       │   └── string.h
+│       ├── driver
+│       │   ├── keyboard.c
+│       │   └── keyboard.h
+│       ├── fs
+│       │   ├── btfs.c
+│       │   ├── btfs.h
+│       │   ├── fat12.c
+│       │   ├── fat12.h
+│       │   ├── fat32.c
+│       │   ├── fat32.h
+│       │   ├── lfs.c
+│       │   ├── lfs.h
+│       │   ├── nfs.c
+│       │   └── nfs.h
+│       ├── root
+│       │   └── kernel.c
+│       ├── sh
+│       │   ├── cd.c
+│       │   ├── cd.h
+│       │   ├── echo.c
+│       │   ├── echo.h
+│       │   ├── exit.c
+│       │   ├── exit.h
+│       │   ├── lfetch.c
+│       │   ├── lfetch.h
+│       │   ├── ls.c
+│       │   ├── ls.h
+│       │   ├── ltime.c
+│       │   ├── ltime.h
+│       │   ├── mkdir.c
+│       │   ├── mkdir.h
+│       │   ├── rmdir.c
+│       │   ├── rmdir.h
+│       │   ├── shell.c
+│       │   └── shell.h
+│       └── uilib
+│           ├── ui.c
+│           └── ui.h
+└── utils
+    └── flasher.py
 ```
 
