@@ -1,6 +1,6 @@
-# ArcOS(closed)
+# ArcOS
 
-ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 32 bit system.works on 2 megabyte but the bootloader grub wont load if lower.future modifications for this os is kinda limited.(read last.txt if you wanna mod)
+ArcOS is a os made for fun and not meant for serious stuff.it is x86 that means 32 bit system.works on 2 megabyte but the bootloader grub wont load if lower.future modifications for this os is kinda limited.
 
 ---
 
