@@ -85,24 +85,15 @@ void clear_screen() {
 }
 
 void delay() {
+    for (volatile unsigned long i = 0; i < 40000000; i++) {}
+}
+
+void stdelay() {
     for (volatile unsigned long i = 0; i < 10000000; i++) {}
 }
 
 void dbfs() {
     for (volatile unsigned long i = 0; i < 200000000UL; i++) {}
-}
-
-void msc_main(void) {
-    printk("\n[!] Running system scan...\n");
-    delay();
-    printk("[*] Checking filesystem...\n");
-    delay();
-    printk("[*] Checking memory...\n");
-    delay();
-    printk("[*] Analyzing processes...\n");
-    delay();
-    printk("[+] Booted normally.\n\n");
-    delay();
 }
 
 void show_splash(void) {
@@ -116,10 +107,51 @@ void show_splash(void) {
     dbfs();
 }
 
+void kernelbfs(void) {
+    clear_screen();
+    printk("[0.120] boot sequence ended\n");
+    delay();
+    printk("[1.200] shifting to core language\n");
+    delay();
+    printk("[1.300] loading core modules\n");
+    delay();
+    printk("[1.400] starting core services\n");
+    delay();
+    printk("[1.500] loaded shell.o\n");
+    delay();
+    printk("[1.600] shifting to shell in few second\n");
+    delay();
+    clear_screen();
+    printk("[#------------------------]");
+    stdelay();
+    clear_screen();
+    printk("[##----------------------]");
+    stdelay();
+    clear_screen();
+    printk("[####--------------------]");
+    stdelay();
+    clear_screen();
+    printk("[########----------------]");
+    stdelay();
+    clear_screen();
+    printk("[############------------]");
+    stdelay();
+    clear_screen();
+    printk("[################--------]");
+    stdelay();
+    clear_screen();
+    printk("[####################----]");
+    stdelay();
+    clear_screen();
+    printk("[########################]");
+    delay();
+    clear_screen();
+}
+
 void kernel_main(void) {
     show_splash();
     clear_screen();
-    msc_main();
+    kernelbfs();
     printk("Welcome to ArcOS! \n");
     printk("Log in as root user.\n");
     shell_main();

@@ -33,7 +33,7 @@ LDFLAGS := -T binlink.ld -nostdlib -m elf_i386
 # =========================
 KERNEL_IMG := ArcOS-i386.img
 ISO_DIR    := iso_root
-ISO_IMAGE  := image/ArcOS-Salvador$(VER)k_i386.iso
+ISO_IMAGE  := image/ArcOS-$(CN)$(VER)k_i386.iso
 
 # =========================
 # Sources and Objects

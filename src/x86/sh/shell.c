@@ -14,8 +14,6 @@
 
 #define MAX_COMMAND_LEN 256
 
-// Forward declaration for your fake scan module
-void msc_main(void);
 
 // Declare external functions implemented elsewhere
 void credit_main(void) {
@@ -26,7 +24,7 @@ void whmi_main(void) {
     printk("root\n");
 };
 void shv_v(void) {
-    printk("1.4kvf\n");
+    printk("0kvs\n");
 };
 
 // I/O port access for reboot/shutdown
@@ -132,7 +130,7 @@ void shell_main(void) {
 
                 if (i == 0) {
                 } else if (strcmp(command, "help") == 0) {
-                    printk("Available commands: mkdir, rmdir, credit, help, clear, ls, msc, reboot, shutdown, lfetch, whoami, shell --v\n");
+                    printk("Available commands: mkdir, rmdir, credit, help, clear, ls, reboot, shutdown, lfetch, whoami, shell --v\n");
                 } else if (strcmp(command, "credit") == 0) {
                     credit_main();
                 } else if (strcmp(command, "clear") == 0) {
@@ -144,8 +142,6 @@ void shell_main(void) {
                         printk(files[j].name);
                         putchar('\n');
                     }
-                } else if (strcmp(command, "msc") == 0) {
-                    msc_main();
                 } else if (strcmp(command, "shutdown") == 0) {
                     arc_shutdown();
                 } else if (strcmp(command, "reboot") == 0) {
