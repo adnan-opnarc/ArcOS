@@ -10,6 +10,7 @@
 #include "../driver/keyboard.h"
 #include "../crp/string.h"
 #include "../fs/fat32.h"
+#include "../cr/ccrp.h"
 #include <stdbool.h>  // added for bool
 
 #define MAX_COMMAND_LEN 256
@@ -44,7 +45,7 @@ static inline void outw(unsigned short port, unsigned short val) {
 
 // Shutdown via ACPI power off (QEMU, Bochs, VirtualBox compatible)
 void arc_shutdown() {
-    printk("System shutting down...\n");
+    printk("system closing\n");
     outw(0x604, 0x2000);  // QEMU/Bochs
     outw(0xB004, 0x2000); // VirtualBox
     while (1) { __asm__ volatile ("hlt"); }
@@ -59,7 +60,7 @@ void arc_reboot() {
 }
 
 // Helper: get input from keyboard, optionally hiding input (for password)
-static void get_input(char* buffer, int max_len, bool hide_input) {
+void input(char* buffer, int max_len, bool hide_input) {
     int i = 0;
     while (1) {
         char c = keyboard_getc();
@@ -84,7 +85,8 @@ static void get_input(char* buffer, int max_len, bool hide_input) {
         }
     }
 }
-
+//cryptic interpreter for the language changes
+void main_cr(void);
 // Check if entered username and password match expected values
 static bool check_credentials(const char* user, const char* pass) {
     return strcmp(user, "root") == 0 && strcmp(pass, "arcroot") == 0;
@@ -97,10 +99,10 @@ static void login_prompt(void) {
 
     while (1) {
         printk("Username: ");
-        get_input(username, sizeof(username), false);
+        input(username, sizeof(username), false);
 
         printk("Password: ");
-        get_input(password, sizeof(password), true);
+        input(password, sizeof(password), true);
 
         if (check_credentials(username, password)) {
             clear_screen();
@@ -130,7 +132,7 @@ void shell_main(void) {
 
                 if (i == 0) {
                 } else if (strcmp(command, "help") == 0) {
-                    printk("Available commands: mkdir, rmdir, credit, help, clear, ls, reboot, shutdown, lfetch, whoami, shell --v\n");
+                    printk("Available commands: ccrp, mkdir, rmdir, credit, help, clear, ls, reboot, shutdown, lfetch, whoami, shell --v\n");
                 } else if (strcmp(command, "credit") == 0) {
                     credit_main();
                 } else if (strcmp(command, "clear") == 0) {
@@ -154,8 +156,10 @@ void shell_main(void) {
                     shv_v();
                 } else if (strcmp(command,  "mkdir") == 0) {
                     mkdir_main();
-                } else if (strcmp(command,  "rmdir") == 0) {\
+                } else if (strcmp(command,  "rmdir") == 0) {
                     rmdir_main();
+                } else if (strcmp(command, "ccrp") == 0) {
+                    main_cr();
                 } else {
                     printk("Unknown command: ");
                     printk(command);

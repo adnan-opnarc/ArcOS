@@ -40,6 +40,7 @@ ISO_IMAGE  := image/ArcOS-$(CN)$(VER)k_i386.iso
 # =========================
 SRC := \
 	src/x86/root/kernel.c \
+	src/x86/root/kernel_panic.c \
 	src/x86/sh/shell.c \
 	src/x86/crp/string.c \
 	src/x86/driver/keyboard.c \
@@ -57,7 +58,8 @@ SRC := \
 	src/x86/fs/btfs.c \
 	src/x86/fs/fat12.c \
 	src/x86/fs/lfs.c \
-	src/x86/fs/nfs.c
+	src/x86/fs/nfs.c \
+	src/x86/cr/ccrp.c
 
 OBJ := $(SRC:.c=.o)
 

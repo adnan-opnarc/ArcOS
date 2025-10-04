@@ -8,6 +8,7 @@ __attribute__((section(".multiboot"), used)) static const unsigned int multiboot
 #include "../sh/shell.h"
 #include "../driver/keyboard.h"
 #include "../uilib/ui.h"
+#include "kernel_panic.h"
 
 void shell_main(void);
 
@@ -96,6 +97,8 @@ void dbfs() {
     for (volatile unsigned long i = 0; i < 200000000UL; i++) {}
 }
 
+void kernel_main(void);
+
 void show_splash(void) {
     clear_screen();
     printk("       /\\        \n");
@@ -120,6 +123,8 @@ void kernelbfs(void) {
     printk("[1.500] loaded shell.o\n");
     delay();
     printk("[1.600] shifting to shell in few second\n");
+    delay();
+    printk("[000] session has started may be theres a issue in kernel\n");
     delay();
     clear_screen();
     printk("[#------------------------]");
@@ -151,6 +156,7 @@ void kernelbfs(void) {
 void kernel_main(void) {
     show_splash();
     clear_screen();
+    //kernel_panic(); //is on work dont touch
     kernelbfs();
     printk("Welcome to ArcOS! \n");
     printk("Log in as root user.\n");
