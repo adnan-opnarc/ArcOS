@@ -59,9 +59,13 @@ SRC := \
 	src/x86/fs/fat12.c \
 	src/x86/fs/lfs.c \
 	src/x86/fs/nfs.c \
+<<<<<<< HEAD
 	src/x86/cr/ccrp.c \
 	src/x86/cr/input.c \
 	src/x86/cr/print.c \
+=======
+	src/x86/cr/ccrp.c
+>>>>>>> ac9702b722545892c836f5fb7eb49d29897b8750
 
 OBJ := $(SRC:.c=.o)
 

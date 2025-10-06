@@ -60,7 +60,11 @@ void arc_reboot() {
 }
 
 // Helper: get input from keyboard, optionally hiding input (for password)
+<<<<<<< HEAD
 void input_sh(char* buffer, int max_len, bool hide_input) {
+=======
+void input(char* buffer, int max_len, bool hide_input) {
+>>>>>>> ac9702b722545892c836f5fb7eb49d29897b8750
     int i = 0;
     while (1) {
         char c = keyboard_getc();
@@ -99,10 +103,17 @@ static void login_prompt(void) {
 
     while (1) {
         printk("Username: ");
+<<<<<<< HEAD
         input_sh(username, sizeof(username), false);
 
         printk("Password: ");
         input_sh(password, sizeof(password), true);
+=======
+        input(username, sizeof(username), false);
+
+        printk("Password: ");
+        input(password, sizeof(password), true);
+>>>>>>> ac9702b722545892c836f5fb7eb49d29897b8750
 
         if (check_credentials(username, password)) {
             clear_screen();
