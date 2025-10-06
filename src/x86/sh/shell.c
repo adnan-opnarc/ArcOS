@@ -10,23 +10,22 @@
 #include "../driver/keyboard.h"
 #include "../crp/string.h"
 #include "../fs/fat32.h"
+#include "../cr/ccrp.h"
 #include <stdbool.h>  // added for bool
 
 #define MAX_COMMAND_LEN 256
 
-// Forward declaration for your fake scan module
-void msc_main(void);
 
 // Declare external functions implemented elsewhere
 void credit_main(void) {
-    puts("Maintainer:Adnan\nProgrammer:Adnan\n");
+    printk("Maintainer:Adnan\nProgrammer:Adnan\n");
 };
 
 void whmi_main(void) {
-    puts("root\n");
+    printk("root\n");
 };
 void shv_v(void) {
-    puts("1.4kvf\n");
+    printk("0kvs\n");
 };
 
 // I/O port access for reboot/shutdown
@@ -46,7 +45,7 @@ static inline void outw(unsigned short port, unsigned short val) {
 
 // Shutdown via ACPI power off (QEMU, Bochs, VirtualBox compatible)
 void arc_shutdown() {
-    puts("System shutting down...\n");
+    printk("system closing\n");
     outw(0x604, 0x2000);  // QEMU/Bochs
     outw(0xB004, 0x2000); // VirtualBox
     while (1) { __asm__ volatile ("hlt"); }
@@ -54,14 +53,14 @@ void arc_shutdown() {
 
 // Reboot using keyboard controller
 void arc_reboot() {
-    puts("Rebooting system...\n");
+    printk("Rebooting system...\n");
     while ((inb(0x64) & 0x02) != 0); // wait until input buffer empty
     outb(0x64, 0xFE);                // send reset command
     while (1) { __asm__ volatile ("hlt"); }
 }
 
 // Helper: get input from keyboard, optionally hiding input (for password)
-static void get_input(char* buffer, int max_len, bool hide_input) {
+void input_sh(char* buffer, int max_len, bool hide_input) {
     int i = 0;
     while (1) {
         char c = keyboard_getc();
@@ -74,7 +73,7 @@ static void get_input(char* buffer, int max_len, bool hide_input) {
         } else if (c == '\b') {
             if (i > 0) {
                 i--;
-                puts("\b \b"); // erase character on screen
+                printk("\b \b"); // erase character on screen
             }
         } else if (i < max_len - 1) {
             buffer[i++] = c;
@@ -86,7 +85,8 @@ static void get_input(char* buffer, int max_len, bool hide_input) {
         }
     }
 }
-
+//cryptic interpreter for the language changes
+void main_cr(void);
 // Check if entered username and password match expected values
 static bool check_credentials(const char* user, const char* pass) {
     return strcmp(user, "root") == 0 && strcmp(pass, "arcroot") == 0;
@@ -98,19 +98,19 @@ static void login_prompt(void) {
     char password[32];
 
     while (1) {
-        puts("Username: ");
-        get_input(username, sizeof(username), false);
+        printk("Username: ");
+        input_sh(username, sizeof(username), false);
 
-        puts("Password: ");
-        get_input(password, sizeof(password), true);
+        printk("Password: ");
+        input_sh(password, sizeof(password), true);
 
         if (check_credentials(username, password)) {
             clear_screen();
-            puts("\nKernel version 1.5 Archaeopatryx-15/8/2025");
-            puts("\nLogin successful.Type 'help' command to get all the commands listed\n");
+            printk("\nKernel version 1.5 Archaeopatryx-15/8/2025");
+            printk("\nLogin successful.Type 'help' command to get all the commands listed\n");
             break;
         } else {
-            puts("\nLogin failed. Try again.\n");
+            printk("\nLogin failed. Try again.\n");
         }
     }
 }
@@ -121,7 +121,7 @@ void shell_main(void) {
     char command[MAX_COMMAND_LEN];
     int i = 0;
 
-    puts("root@adm# ");
+    printk("root@adm# ");
 
     while (1) {
         char c = keyboard_getc();
@@ -132,7 +132,7 @@ void shell_main(void) {
 
                 if (i == 0) {
                 } else if (strcmp(command, "help") == 0) {
-                    puts("Available commands: mkdir, rmdir, credit, help, clear, ls, msc, reboot, shutdown, lfetch, whoami, shell --v\n");
+                    printk("Available commands: ccrp, mkdir, rmdir, credit, help, clear, ls, reboot, shutdown, lfetch, whoami, shell --v\n");
                 } else if (strcmp(command, "credit") == 0) {
                     credit_main();
                 } else if (strcmp(command, "clear") == 0) {
@@ -141,11 +141,9 @@ void shell_main(void) {
                     struct fat32_file files[16];
                     int count = fat32_list_dir(files, 16);
                     for (int j = 0; j < count; j++) {
-                        puts(files[j].name);
+                        printk(files[j].name);
                         putchar('\n');
                     }
-                } else if (strcmp(command, "msc") == 0) {
-                    msc_main();
                 } else if (strcmp(command, "shutdown") == 0) {
                     arc_shutdown();
                 } else if (strcmp(command, "reboot") == 0) {
@@ -158,20 +156,22 @@ void shell_main(void) {
                     shv_v();
                 } else if (strcmp(command,  "mkdir") == 0) {
                     mkdir_main();
-                } else if (strcmp(command,  "rmdir") == 0) {\
+                } else if (strcmp(command,  "rmdir") == 0) {
                     rmdir_main();
+                } else if (strcmp(command, "ccrp") == 0) {
+                    main_cr();
                 } else {
-                    puts("Unknown command: ");
-                    puts(command);
+                    printk("Unknown command: ");
+                    printk(command);
                     putchar('\n');
                 }
 
                 i = 0;
-                puts("root@adm# ");
+                printk("root@adm# ");
             } else if (c == '\b') {
                 if (i > 0) {
                     i--;
-                    puts("\b \b"); 
+                    printk("\b \b"); 
                 }
             } else {
                 if (i < MAX_COMMAND_LEN - 1) {

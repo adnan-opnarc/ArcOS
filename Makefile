@@ -4,12 +4,12 @@
 # =========================
 # ArcOS Build System
 # =========================
-VER  := 1.5
-CN   := opassium
+VER  := 1.7
+CN   := archaeono
 SDD  := kvf
-MM   := 4.8
+MM   := 5.2
 BUID := 174893KJF0098
-rev  := 2
+rev  := 1
 
 # =========================
 # Compiler and Tools
@@ -33,13 +33,14 @@ LDFLAGS := -T binlink.ld -nostdlib -m elf_i386
 # =========================
 KERNEL_IMG := ArcOS-i386.img
 ISO_DIR    := iso_root
-ISO_IMAGE  := image/ArcOS-Salvador$(VER)k_i386.iso
+ISO_IMAGE  := image/ArcOS-$(CN)$(VER)k_i386.iso
 
 # =========================
 # Sources and Objects
 # =========================
 SRC := \
 	src/x86/root/kernel.c \
+	src/x86/root/kernel_panic.c \
 	src/x86/sh/shell.c \
 	src/x86/crp/string.c \
 	src/x86/driver/keyboard.c \
@@ -57,7 +58,10 @@ SRC := \
 	src/x86/fs/btfs.c \
 	src/x86/fs/fat12.c \
 	src/x86/fs/lfs.c \
-	src/x86/fs/nfs.c
+	src/x86/fs/nfs.c \
+	src/x86/cr/ccrp.c \
+	src/x86/cr/input.c \
+	src/x86/cr/print.c \
 
 OBJ := $(SRC:.c=.o)
 

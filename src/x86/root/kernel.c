@@ -8,6 +8,7 @@ __attribute__((section(".multiboot"), used)) static const unsigned int multiboot
 #include "../sh/shell.h"
 #include "../driver/keyboard.h"
 #include "../uilib/ui.h"
+#include "kernel_panic.h"
 
 void shell_main(void);
 
@@ -69,7 +70,7 @@ void putchar(char c) {
     update_cursor();
 }
 
-void puts(const char* str) {
+void printk(const char* str) {
     while (*str) {
         putchar(*str++);
     }
@@ -85,6 +86,10 @@ void clear_screen() {
 }
 
 void delay() {
+    for (volatile unsigned long i = 0; i < 40000000; i++) {}
+}
+
+void stdelay() {
     for (volatile unsigned long i = 0; i < 10000000; i++) {}
 }
 
@@ -92,36 +97,69 @@ void dbfs() {
     for (volatile unsigned long i = 0; i < 200000000UL; i++) {}
 }
 
-void msc_main(void) {
-    puts("\n[!] Running system scan...\n");
-    delay();
-    puts("[*] Checking filesystem...\n");
-    delay();
-    puts("[*] Checking memory...\n");
-    delay();
-    puts("[*] Analyzing processes...\n");
-    delay();
-    puts("[+] Booted normally.\n\n");
-    delay();
-}
+void kernel_main(void);
 
 void show_splash(void) {
     clear_screen();
-    puts("       /\\        \n");
-    puts("      /  \\       \n");
-    puts("     / /\\ \\      \n");
-    puts("    / ____ \\     \n");
-    puts("   /_/    \\_\\    \n");
-    puts("\n     Arc OS      \n");
+    printk("       /\\        \n");
+    printk("      /  \\       \n");
+    printk("     / /\\ \\      \n");
+    printk("    / ____ \\     \n");
+    printk("   /_/    \\_\\    \n");
+    printk("\n     Arc OS      \n");
     dbfs();
+}
+
+void kernelbfs(void) {
+    clear_screen();
+    printk("[0.120] boot sequence ended\n");
+    delay();
+    printk("[1.200] shifting to core language\n");
+    delay();
+    printk("[1.300] loading core modules\n");
+    delay();
+    printk("[1.400] starting core services\n");
+    delay();
+    printk("[1.500] loaded shell.o\n");
+    delay();
+    printk("[1.600] shifting to shell in few second\n");
+    delay();
+    printk("[000] session has started may be theres a issue in kernel\n");
+    delay();
+    clear_screen();
+    printk("[#------------------------]");
+    stdelay();
+    clear_screen();
+    printk("[##----------------------]");
+    stdelay();
+    clear_screen();
+    printk("[####--------------------]");
+    stdelay();
+    clear_screen();
+    printk("[########----------------]");
+    stdelay();
+    clear_screen();
+    printk("[############------------]");
+    stdelay();
+    clear_screen();
+    printk("[################--------]");
+    stdelay();
+    clear_screen();
+    printk("[####################----]");
+    stdelay();
+    clear_screen();
+    printk("[########################]");
+    delay();
+    clear_screen();
 }
 
 void kernel_main(void) {
     show_splash();
     clear_screen();
-    msc_main();
-    puts("Welcome to ArcOS! \n");
-    puts("Log in as root user.\n");
+    //kernel_panic(); //is on work dont touch
+    kernelbfs();
+    printk("Welcome to ArcOS! \n");
+    printk("Log in as root user.\n");
     shell_main();
 
     while (1) {}
