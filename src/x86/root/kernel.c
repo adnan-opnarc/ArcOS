@@ -1,3 +1,6 @@
+// Arc os by Adnan opnarc  Licensed under Mit
+
+
 __attribute__((section(".multiboot"), used)) static const unsigned int multiboot_header[] = {
     0x1BADB002, 0x00, -(0x1BADB002 + 0x00)
 };
