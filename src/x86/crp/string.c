@@ -37,3 +37,25 @@ size_t strlen(const char *s) {
     return n;
 }
 
+char *strcpy(char *dest, const char *src) {
+    char *d = dest;
+    while ((*d++ = *src++));
+    return dest;
+}
+
+char *strcat(char *dest, const char *src) {
+    char *d = dest;
+    while (*d) d++;
+    while ((*d++ = *src++));
+    return dest;
+}
+
+char *strchr(const char *s, int c) {
+    while (*s) {
+        if (*s == (char)c) return (char *)s;
+        s++;
+    }
+    if (c == 0) return (char *)s;
+    return NULL;
+}
+

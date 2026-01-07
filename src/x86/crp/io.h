@@ -21,4 +21,8 @@ static inline void outsw(uint16_t port, const void* addr, int count) {
     __asm__ volatile ("rep outsw" : : "d"(port), "S"(addr), "c"(count));
 }
 
+static inline void outw(uint16_t port, uint16_t val) {
+    __asm__ volatile ("outw %0, %1" : : "a"(val), "Nd"(port));
+}
+
 #endif

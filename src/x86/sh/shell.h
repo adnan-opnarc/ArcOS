@@ -7,10 +7,9 @@ void putchar(char c);
 void clear_screen(void);
 void shell_main(void);
 void arc_shutdown(void);
-<<<<<<< HEAD
+void arc_shutdown(void);
 void input_sh(char* buffer, int max_len, bool hide_input);
-=======
 void input(char* buffer, int max_len, bool hide_input);
->>>>>>> ac9702b722545892c836f5fb7eb49d29897b8750
+void move_cursor(int x, int y);
 
 #endif 
