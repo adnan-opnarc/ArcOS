@@ -33,14 +33,15 @@ arcroot(password)
 ```
 ### File structure (20% of the shell commands are empty)
 ```bash
+.
 ├── binlink.ld
 ├── boot
 │   ├── grub
 │   │   └── themes
 │   │       └── arc
 │   │           └── theme.txt
-│   ├── grubarch64.cfg
 │   └── grub.cfg
+├── build
 ├── build.sh
 ├── image
 ├── LICENSE
@@ -50,33 +51,66 @@ arcroot(password)
 │   └── x86
 │       ├── cr
 │       │   ├── ccrp.c
-│       │   └── ccrp.h
+│       │   ├── ccrp.h
+│       │   ├── input.c
+│       │   ├── input.h
+│       │   ├── print.c
+│       │   └── print.h
 │       ├── crp
 │       │   ├── ata.c
 │       │   ├── ata.h
+│       │   ├── ata.o
+│       │   ├── bitmap.c
+│       │   ├── bitmap.h
+│       │   ├── bitmap_usage.md
+│       │   ├── bpm.c
+│       │   ├── bpm.h
 │       │   ├── io.h
 │       │   ├── string.c
 │       │   └── string.h
 │       ├── driver
+│       │   ├── display.c
+│       │   ├── display.h
 │       │   ├── keyboard.c
 │       │   └── keyboard.h
+│       ├── fonts
+│       │   ├── cp850-8x16.psf
+│       │   ├── cp.psf
+│       │   └── op.psf
 │       ├── fs
 │       │   ├── btfs.c
 │       │   ├── btfs.h
+│       │   ├── btfs.o
 │       │   ├── fat12.c
 │       │   ├── fat12.h
+│       │   ├── fat12.o
 │       │   ├── fat32.c
 │       │   ├── fat32.h
 │       │   ├── lfs.c
 │       │   ├── lfs.h
+│       │   ├── lfs.o
 │       │   ├── nfs.c
-│       │   └── nfs.h
+│       │   ├── nfs.h
+│       │   ├── nfs.o
+│       │   ├── ramfs.c
+│       │   └── ramfs.h
+│       ├── icons
+│       │   ├── icon.c
+│       │   └── icon.h
 │       ├── root
+│       │   ├── font_array.h
+│       │   ├── font.c
+│       │   ├── font_example.c
+│       │   ├── font.h
 │       │   ├── kernel.c
 │       │   ├── kernel.h
-│       │   ├── kernel_panic.c
-│       │   └── kernel_panic.h
+│       │   ├── tui.c
+│       │   └── tui.h
 │       ├── sh
+│       │   ├── bitmap.c
+│       │   ├── bitmap.h
+│       │   ├── cat.c
+│       │   ├── cat.h
 │       │   ├── cd.c
 │       │   ├── cd.h
 │       │   ├── echo.c
@@ -89,17 +123,26 @@ arcroot(password)
 │       │   ├── ls.h
 │       │   ├── ltime.c
 │       │   ├── ltime.h
+│       │   ├── man.c
+│       │   ├── man.h
 │       │   ├── mkdir.c
 │       │   ├── mkdir.h
+│       │   ├── pid.c
+│       │   ├── pid.h
 │       │   ├── rmdir.c
 │       │   ├── rmdir.h
+│       │   ├── script.c
+│       │   ├── script.h
 │       │   ├── shell.c
-│       │   └── shell.h
-│       └── uilib
-│           ├── ui.c
-│           └── ui.h
+│       │   ├── shell.h
+│       │   ├── touch.c
+│       │   └── touch.h
+│       └── sys32
+│           ├── inf.c
+│           └── inf.h
 └── utils
-    └── flasher.py
-
+    ├── flasher.py
+    ├── image_to_carray.py
+    └── psf_to_carray.py
 ```
 
