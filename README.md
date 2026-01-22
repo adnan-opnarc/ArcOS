@@ -1,16 +1,15 @@
-# ArcOS
+# ArcOS(legacy)
 It's a dream for nothing.hope for anything
 
 ---
 
-## 1.5kvf-rc1
+## 1.7kvf-rc1
 
-- Kernel panic
-- Cryptic language support working
+- TUI
 
 ---
 ## What's in work
-- Cryptic language
+- Out of development
 
 
 ## System Requirements
@@ -24,6 +23,8 @@ It's a dream for nothing.hope for anything
 cd ArcOS
 chmod +x build.sh
 ./build.sh
+
+or Makefile: make ,make run
 ```
 ## Login password and user
 
